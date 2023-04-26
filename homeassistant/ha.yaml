@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: homeassistant
+spec:
+  selector:
+    matchLabels:
+      app: homeassistant
+  serviceName: homeassistant
+  replicas: 1
+  minReadySeconds: 10 
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: ghcr.io/home-assistant/home-assistant:2023.4
+          name: homeassistant
+          volumeMounts:
+            - name: homeassistant-pvc
+              mountPath: /config
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 1000m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+  volumeClaimTemplates:
+    - metadata:
+        name: homeassistant-pvc
+        annotations:
+          argocd.argoproj.io/sync-options: Prune=false
+      spec:
+        storageClassName: local-k8svolumes
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

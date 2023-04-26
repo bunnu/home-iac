@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homeassistant
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  tls:
+    - hosts:
+        - home.rana.cloud
+      secretName: homeassistant-ingress-tls
+  rules:
+    - host: home.rana.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: homeassistant
+                port:
+                  number: 8123
+            pathType: Prefix
