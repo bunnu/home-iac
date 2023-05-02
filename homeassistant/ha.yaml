@@ -20,7 +20,7 @@ spec:
         - image: ghcr.io/home-assistant/home-assistant:2023.4
           name: homeassistant
           volumeMounts:
-            - name: homeassistant-pvc
+            - name: homeassistant-volume
               mountPath: /config
           resources:
             limits:
@@ -29,14 +29,8 @@ spec:
           env:
             - name: TZ
               value: Europe/Berlin
-  volumeClaimTemplates:
-    - metadata:
-        name: homeassistant-pvc
-        annotations:
-          argocd.argoproj.io/sync-options: Prune=false
-      spec:
-        storageClassName: local-k8svolumes
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+      volumes:
+        - name: homeassistant-volume
+          hostPath:
+            path: /var/data/homeassistant
+            type: Directory
