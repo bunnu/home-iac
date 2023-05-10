@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magicmirror
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: magicmirror
+  template:
+    metadata:
+      labels:
+        app: magicmirror
+    spec:
+      volumes:
+        - name: config-volume
+          hostPath:
+            path: /var/data/magicmirror/config.js
+            type: File
+        - name: modules
+          emptyDir:
+            sizeLimit: 500Mi
+        - name: css
+          emptyDir:
+            sizeLimit: 1Mi
+      containers:
+        - image: karsten13/magicmirror:v2.23.0
+          name: magicmirror
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 500m
+          volumeMounts:
+            - mountPath: /opt/magic_mirror/config/config.js
+              name: config-volume
+            - mountPath: /opt/magic_mirror/modules
+              name: modules
+            - mountPath: /opt/magic_mirror/css
+              name: css
+          env:
+            - name: TZ
+              value: Europe/Berlin
+
+          command:
+            - npm
+            - run
+            - server
+      initContainers:
+        - name: init
+          image: karsten13/magicmirror:v2.23.0
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - ./entrypoint.sh;
+              cd modules;
+              git clone https://github.com/MMM-CalendarExt2/MMM-CalendarExt2 --depth 1;
+              cd MMM-CalendarExt2 && npm install && cd ..;
+              git clone https://github.com/ottopaulsen/MMM-MQTT --depth 1;
+              cd MMM-MQTT && npm install && cd ..;
+              git clone https://github.com/MarcLandis/MMM-OpenWeatherMapForecast.git --depth 1;
+              cd MMM-OpenWeatherMapForecast && npm install && cd ..;
+          volumeMounts:
+            - mountPath: /opt/magic_mirror/modules
+              name: modules
+            - mountPath: /opt/magic_mirror/css
+              name: css

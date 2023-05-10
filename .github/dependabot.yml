@@ -2,19 +2,25 @@
 
 version: 2
 updates:
-  - package-ecosystem: "docker" 
+  - package-ecosystem: "docker"
     directory: "/evcc"
     schedule:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
-  - package-ecosystem: "docker" 
+  - package-ecosystem: "docker"
     directory: "/homeassistant"
     schedule:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
-  - package-ecosystem: "docker" 
+  - package-ecosystem: "docker"
+    directory: "/magicmirror"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "docker"
     directory: "/mosquitto"
     schedule:
       interval: "daily"
