@@ -1,0 +1,22 @@
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "docker" 
+    directory: "/homeassistant"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "docker" 
+    directory: "/mosquitto"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "docker" 
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
