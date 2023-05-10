@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evcc
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: evcc
+  template:
+    metadata:
+      labels:
+        app: evcc
+    spec:
+      volumes:
+        - name: config-volume
+          hostPath:
+            path: /var/data/evcc/evcc.yaml
+            type: File
+      hostNetwork: true
+      containers:
+        - image: evcc/evcc:0.117.0
+          name: evcc
+          resources:
+            limits:
+              memory: 64Mi
+              cpu: 500m
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/evcc.yaml
+          env:
+            - name: SEMP_BASE_URL
+              value: http://192.168.178.69:7070
