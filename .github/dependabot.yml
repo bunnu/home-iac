@@ -3,6 +3,12 @@
 version: 2
 updates:
   - package-ecosystem: "docker" 
+    directory: "/evcc"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "docker" 
     directory: "/homeassistant"
     schedule:
       interval: "daily"
@@ -10,12 +16,6 @@ updates:
       timezone: "Europe/Berlin"
   - package-ecosystem: "docker" 
     directory: "/mosquitto"
-    schedule:
-      interval: "daily"
-      time: "19:30"
-      timezone: "Europe/Berlin"
-  - package-ecosystem: "docker" 
-    directory: "/"
     schedule:
       interval: "daily"
       time: "19:30"
