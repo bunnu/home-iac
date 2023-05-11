@@ -23,7 +23,7 @@ spec:
             path: /var/data/paperless/consume
             type: Directory
       containers:
-        - image: nextcloud:25.0.6
+        - image: nextcloud:26.0.1
           name: nextcloud
           resources:
             limits:
@@ -35,7 +35,7 @@ spec:
             - mountPath: "/var/data/paperless/consume"
               name: paperless-volume
         - name: nextcloud-cron
-          image: nextcloud:25.0.6
+          image: nextcloud:26.0.1
           command:
             - /cron.sh
           resources:
