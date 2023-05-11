@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      volumes:
+        - name: nextcloud-volume
+          hostPath:
+            path: /var/data/nextcloud/storage
+            type: Directory
+        - name: paperless-volume
+          hostPath:
+            path: /var/data/paperless/consume
+            type: Directory
+      containers:
+        - image: nextcloud:25.0.6
+          name: nextcloud
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: 2000m
+          volumeMounts:
+            - mountPath: "/var/www/html"
+              name: nextcloud-volume
+            - mountPath: "/var/data/paperless/consume"
+              name: paperless-volume
+        - name: nextcloud-cron
+          image: nextcloud:25.0.6
+          command:
+            - /cron.sh
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: 2000m
+          volumeMounts:
+            - mountPath: "/var/www/html"
+              name: nextcloud-volume

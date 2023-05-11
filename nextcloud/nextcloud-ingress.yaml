@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: 16m
+spec:
+  tls:
+    - hosts:
+        - next.rana.cloud
+      secretName: nextcloud-ingress-tls
+  rules:
+    - host: next.rana.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: nextcloud
+                port:
+                  number: 80
+            pathType: Prefix

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imaginary
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: imaginary
+  template:
+    metadata:
+      labels:
+        app: imaginary
+    spec:
+      containers:
+        - image: nextcloud/aio-imaginary:20230422_090326-latest
+          name: imaginary
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: 6
+          args:
+            - concurrency 5
+          securityContext:
+            capabilities:
+              add:
+                - SYS_NICE
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9000
+            initialDelaySeconds: 1
