@@ -32,3 +32,9 @@ updates:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
+  - package-ecosystem: "docker"
+    directory: "/wikijs"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"

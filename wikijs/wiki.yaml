@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiki
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: wiki
+  template:
+    metadata:
+      labels:
+        app: wiki
+    spec:
+      containers:
+        - image: requarks/wiki:2.5.298
+          name: wiki
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+            requests:
+              memory: 128Mi
+              cpu: 10m
+          env:
+            - name: DB_TYPE
+              value: postgres
+            - name: DB_HOST
+              value: db
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: <path:brvault#wikijs-postgres-user>
+            - name: DB_PASS
+              value: <path:brvault#wikijs-postgres-password>
+            - name: DB_NAME
+              value: wiki

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  serviceName: db
+  replicas: 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - image: postgres:15.2-alpine
+          name: db
+          volumeMounts:
+            - name: db-volume
+              mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 500m
+            requests:
+              memory: 32Mi
+              cpu: 1m
+          env:
+            - name: POSTGRES_USER
+              value: <path:brvault#wikijs-postgres-user>
+            - name: POSTGRES_PASSWORD
+              value: <path:brvault#wikijs-postgres-password>
+            - name: POSTGRES_DB
+              value: wiki
+      volumes:
+        - name: db-volume
+          hostPath:
+            path: /var/data/wikijs/postgres
+            type: Directory
