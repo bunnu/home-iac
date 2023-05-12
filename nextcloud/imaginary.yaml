@@ -20,9 +20,9 @@ spec:
             limits:
               memory: 2048Mi
               cpu: 3
-          requests:
+            requests:
               memory: 128Mi
-              cpu: 0.01
+              cpu: 10m
           args:
             - concurrency 5
           securityContext:
