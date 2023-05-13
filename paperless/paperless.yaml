@@ -42,6 +42,8 @@ spec:
               mountPath: "/usr/src/paperless/consume"
               subPath: "consume"
           env:
+            - name: PAPERLESS_PORT
+              value: "8000"
             - name: PAPERLESS_REDIS
               value: redis://redis:6379
             - name: PAPERLESS_DBHOST
