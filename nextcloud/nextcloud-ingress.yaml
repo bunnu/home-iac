@@ -4,7 +4,7 @@ metadata:
   name: nextcloud
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/proxy-body-size: 16m
+    nginx.ingress.kubernetes.io/proxy-body-size: 101m
 spec:
   tls:
     - hosts:
