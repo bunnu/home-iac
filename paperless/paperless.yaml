@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      volumes:
+        - name: paperless-volume
+          hostPath:
+            path: /var/data/paperless
+            type: Directory
+      containers:
+        - image: ghcr.io/paperless-ngx/paperless-ngx:1.13.0
+          name: paperless
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: 2
+            requests:
+              memory: 128Mi
+              cpu: 10m
+          volumeMounts:
+            - name: paperless-volume
+              mountPath: "/usr/src/paperless/data"
+              subPath: "data"
+            - name: paperless-volume
+              mountPath: "/usr/src/paperless/media"
+              subPath: "media"
+            - name: paperless-volume
+              mountPath: "/usr/src/paperless/export"
+              subPath: "export"
+            - name: paperless-volume
+              mountPath: "/usr/src/paperless/consume"
+              subPath: "consume"
+          env:
+            - name: PAPERLESS_REDIS
+              value: redis://redis:6379
+            - name: PAPERLESS_DBHOST
+              value: "db"
+            - name: PAPERLESS_ENABLE_UPDATE_CHECK
+              value: "true"
+            - name: USERMAP_UID
+              value: "1000"
+            - name: USERMAP_GID
+              value: "1000"
+            - name: PAPERLESS_OCR_LANGUAGES
+              value: "deu eng"
+            - name: "PAPERLESS_TIME_ZONE"
+              value: "Europe/Berlin"
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: "deu"
+            - name: PAPERLESS_FILENAME_FORMAT
+              value: "{created_year}/{correspondent}/{title}"
