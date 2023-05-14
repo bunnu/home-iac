@@ -33,6 +33,12 @@ updates:
       time: "19:30"
       timezone: "Europe/Berlin"
   - package-ecosystem: "docker"
+    directory: "/nodered"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: "docker"
     directory: "/paperless"
     schedule:
       interval: "daily"

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-red
+spec:
+  type: LoadBalancer
+  ports:
+    - name: web
+      port: 80
+      targetPort: 1880
+    - name: shm-multicast
+      protocol: UDP
+      port: 9522
+      targetPort: 9522
+  selector:
+    app: nodered

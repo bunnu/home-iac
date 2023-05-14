@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nodered
+spec:
+  selector:
+    matchLabels:
+      app: nodered
+  serviceName: nodered
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: nodered
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: nodered/node-red:3.0.2
+          name: nodered
+          volumeMounts:
+            - name: nodered-volume
+              mountPath: /data
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+            requests:
+              memory: 100Mi
+              cpu: 50m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+      volumes:
+        - name: nodered-volume
+          hostPath:
+            path: /var/data/nodered
+            type: Directory
