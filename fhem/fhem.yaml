@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fhem
+spec:
+  selector:
+    matchLabels:
+      app: fhem
+  serviceName: fhem
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: fhem
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: ghcr.io/fhem/fhem/fhem-docker:3.1.6-bullseye
+          name: fhem
+          volumeMounts:
+            - name: fhem-volume
+              mountPath: /opt/fhem
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: CPAN_PKGS
+              value: JSON
+            - name: NPM_PKGS
+              value: alexa-fhem homebridge-fhem
+      volumes:
+        - name: fhem-volume
+          hostPath:
+            path: /var/data/fhem
+            type: Directory
