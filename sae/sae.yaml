@@ -16,7 +16,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: avanux/smartapplianceenabler:2.2.2
+        - image: avanux/smartapplianceenabler:2.3.0
           name: sae
           volumeMounts:
             - name: sae-volume
