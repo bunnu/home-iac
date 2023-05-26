@@ -62,6 +62,12 @@ updates:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
+  - directory: "/sae"
+    package-ecosystem: "docker"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
   - directory: "/wikijs"
     package-ecosystem: "docker"
     schedule:

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sae
+spec:
+  selector:
+    matchLabels:
+      app: sae
+  serviceName: sae
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: sae
+    spec:
+      hostNetwork: true
+      containers:
+        - image: avanux/smartapplianceenabler:2.2.2
+          name: sae
+          volumeMounts:
+            - name: sae-volume
+              subPath: data
+              mountPath: /opt/sae/data
+            - name: sae-volume
+              subPath: logback-spring.xml
+              mountPath: /opt/sae/logback-spring.xml
+            - name: sae-volume
+              subPath: logs
+              mountPath: /tmp/logs
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 500m
+            requests:
+              memory: 64Mi
+              cpu: 50m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: JAVA_OPTS
+              value: "-Dserver.port=8080 -Dserver.address=192.168.178.69 -Dsemp.gateway.address=192.168.178.69 -Djava.net.preferIPv4Stack=true -Xmx196m"
+      volumes:
+        - name: sae-volume
+          hostPath:
+            path: /var/data/sae
+            type: Directory
