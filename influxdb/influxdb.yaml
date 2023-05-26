@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  serviceName: influxdb
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: influxdb:2.2.0-alpine
+          name: influxdb
+          volumeMounts:
+            - name: influxdb-volume
+              subPath: datadb
+              mountPath: /var/lib/influxdb2
+            - name: influxdb-volume
+              subPath: configdb
+              mountPath: /etc/influxdb2
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: 1000m
+            requests:
+              memory: 128Mi
+              cpu: 100m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+      volumes:
+        - name: influxdb-volume
+          hostPath:
+            path: /var/data/influxdb
+            type: Directory
