@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  serviceName: grafana
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: grafana/grafana:9.5.2
+          name: grafana
+          volumeMounts:
+            - name: grafana-volume
+              mountPath: /var/lib/grafana
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+            requests:
+              memory: 16Mi
+              cpu: 10m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: GF_INSTALL_PLUGINS
+              value: natel-plotly-panel
+            - name: GF_RENDERING_SERVER_URL
+              value: http://localhost:8081/render
+            - name: GF_RENDERING_CALLBACK_URL
+              value: http://localhost:3000/
+            - name: GF_AUTH_LOGIN_MAXIMUM_INACTIVE_LIFETIME_DAYS
+              value: "60"
+            - name: GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DAYS
+              value: "365"
+        - image: grafana/grafana-image-renderer:3.7.0
+          name: grafana-image-renderer
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+            requests:
+              memory: 16Mi
+              cpu: 10m
+          env:
+            - name: ENABLE_METRICS
+              value: "true"
+      volumes:
+        - name: grafana-volume
+          hostPath:
+            path: /var/data/grafana
+            type: Directory
