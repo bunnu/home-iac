@@ -31,4 +31,4 @@ spec:
               mountPath: /etc/evcc.yaml
           env:
             - name: SEMP_BASE_URL
-              value: http://192.168.178.69:7070
+              value: http://192.168.178.10:7070
