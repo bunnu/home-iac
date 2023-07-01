@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: zigbee2mqtt
+  name: zigbee2mqtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zigbee2mqtt
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zigbee2mqtt
+    spec:
+      containers:
+        - name: zigbee2mqtt
+          image: koenkk/zigbee2mqtt:1.31.2
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: "ZIGBEE2MQTT_DATA"
+              value: "/data"
+          securityContext:
+            privileged: true
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: zigbee2mqtt
+              mountPath: /data
+            - name: zigbee2mqtt-udev
+              mountPath: /run/udev
+            - name: ttyacm
+              mountPath: /dev/ttyACM0
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 500m
+            requests:
+              memory: 32Mi
+              cpu: 10m
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            timeoutSeconds: 1
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            timeoutSeconds: 1
+            periodSeconds: 10
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 0
+            failureThreshold: 30
+            timeoutSeconds: 1
+            periodSeconds: 5
+      volumes:
+        - name: zigbee2mqtt
+          hostPath:
+            path: /var/data/zigbee2mqtt
+        - name: zigbee2mqtt-udev
+          hostPath:
+            path: /run/udev
+        - name: ttyacm
+          hostPath:
+            path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2190359-if00

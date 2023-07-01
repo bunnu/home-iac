@@ -80,3 +80,9 @@ updates:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
+  - directory: "/zigbee2mqtt"
+    package-ecosystem: "docker"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
