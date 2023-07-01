@@ -32,6 +32,12 @@ updates:
       interval: "daily"
       time: "19:30"
       timezone: "Europe/Berlin"
+  - directory: "/jellyfin"
+    package-ecosystem: "docker"
+    schedule:
+      interval: "daily"
+      time: "19:30"
+      timezone: "Europe/Berlin"
   - directory: "/magicmirror"
     package-ecosystem: "docker"
     schedule:

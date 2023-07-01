@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jellyfin
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin
+  serviceName: jellyfin
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      containers:
+        - image: jellyfin/jellyfin:10.8.10
+          name: jellyfin
+          volumeMounts:
+            - name: jellyfin-volume
+              subPath: config/
+              mountPath: /config
+            - name: jellyfin-volume
+              subPath: cache/
+              mountPath: /cache
+            - name: videos-volume
+              mountPath: /media/videos
+            - name: fotos-volume
+              mountPath: /media/fotos
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 2
+            requests:
+              memory: 128Mi
+              cpu: 50m
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: CPAN_PKGS
+              value: JSON
+      volumes:
+        - name: jellyfin-volume
+          hostPath:
+            path: /var/data/jellyfin
+            type: Directory
+        - name: videos-volume
+          hostPath:
+            path: /var/data/nextcloud/storage/data/benjamin/files/Videos
+            type: Directory
+        - name: fotos-volume
+          hostPath:
+            path: /var/data/nextcloud/storage/data/benjamin/files/Fotos
+            type: Directory
+
