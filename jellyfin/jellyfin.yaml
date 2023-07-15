@@ -54,4 +54,3 @@ spec:
           hostPath:
             path: /var/data/nextcloud/storage/data/benjamin/files/Fotos
             type: Directory
-
