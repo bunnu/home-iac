@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: db
 spec:
   selector:
     matchLabels:
       app: db
-  serviceName: db
   replicas: 1
   minReadySeconds: 10 # by default is 0
   template:

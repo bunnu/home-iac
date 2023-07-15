@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: fhem
 spec:
   selector:
     matchLabels:
       app: fhem
-  serviceName: fhem
   replicas: 1
   minReadySeconds: 10
   template:

@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: sae
 spec:
   selector:
     matchLabels:
       app: sae
-  serviceName: sae
   replicas: 1
   minReadySeconds: 10
   template:

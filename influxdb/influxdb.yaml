@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: influxdb
 spec:
   selector:
     matchLabels:
       app: influxdb
-  serviceName: influxdb
   replicas: 1
   minReadySeconds: 10
   template:
