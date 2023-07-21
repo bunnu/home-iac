@@ -14,7 +14,7 @@ spec:
         app: imaginary
     spec:
       containers:
-        - image: nextcloud/aio-imaginary:20230626_101439-latest
+        - image: nextcloud/aio-imaginary:20230720_134150-latest
           name: imaginary
           resources:
             limits:
