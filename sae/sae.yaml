@@ -29,7 +29,7 @@ spec:
               mountPath: /tmp/logs
           resources:
             limits:
-              memory: 512Mi
+              memory: 768Mi
               cpu: 500m
             requests:
               memory: 256Mi
@@ -38,7 +38,7 @@ spec:
             - name: TZ
               value: Europe/Berlin
             - name: JAVA_OPTS
-              value: "-Dserver.port=8080 -Dserver.address=192.168.178.10 -Dsemp.gateway.address=192.168.178.10 -Djava.net.preferIPv4Stack=true -Xmx196m"
+              value: "-Dserver.port=8080 -Dserver.address=192.168.178.10 -Dsemp.gateway.address=192.168.178.10 -Djava.net.preferIPv4Stack=true"
       volumes:
         - name: sae-volume
           hostPath:
