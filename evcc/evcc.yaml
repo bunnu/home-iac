@@ -20,7 +20,7 @@ spec:
             type: File
       hostNetwork: true
       containers:
-        - image: evcc/evcc:0.118.10
+        - image: evcc/evcc:0.118.11
           name: evcc
           resources:
             limits:
