@@ -14,7 +14,7 @@ spec:
         app: wiki
     spec:
       containers:
-        - image: requarks/wiki:2.5.299
+        - image: requarks/wiki:2.5.300
           name: wiki
           resources:
             limits:
