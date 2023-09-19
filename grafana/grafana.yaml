@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
-        - image: grafana/grafana:10.1.1
+        - image: grafana/grafana:10.1.2
           name: grafana
           volumeMounts:
             - name: grafana-volume
