@@ -14,7 +14,6 @@ spec:
         app: grafana
     spec:
       terminationGracePeriodSeconds: 10
-      hostNetwork: true
       containers:
         - image: grafana/grafana:10.1.2
           name: grafana
