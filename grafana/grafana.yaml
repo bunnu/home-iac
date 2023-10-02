@@ -15,7 +15,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-        - image: grafana/grafana:10.1.2
+        - image: grafana/grafana:10.1.4
           name: grafana
           volumeMounts:
             - name: grafana-volume
