@@ -33,7 +33,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: <path:brvault#wikijs-postgres-password>
             - name: POSTGRES_DB
-              value: wiki
+              value: wikijs
       volumes:
         - name: db-volume
           hostPath:
