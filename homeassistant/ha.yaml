@@ -22,8 +22,8 @@ spec:
               mountPath: /config
           resources:
             limits:
-              memory: 512Mi
-              cpu: 1000m
+              memory: 1.5Gi
+              cpu: 2
           env:
             - name: TZ
               value: Europe/Berlin
