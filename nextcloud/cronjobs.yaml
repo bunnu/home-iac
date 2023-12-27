@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: preview-pre-generate
+spec:
+  schedule: "*/3 * * * *"
+  concurrencyPolicy: Forbid
+
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 604800
+      template:
+        spec:
+          volumes:
+            - name: nextcloud-volume
+              hostPath:
+                path: /var/data/nextcloud/storage
+                type: Directory
+          containers:
+          - name: preview-pre-generate
+            image: nextcloud:28.0.1
+            imagePullPolicy: IfNotPresent
+            command:
+            - su
+            - -s
+            - /bin/sh
+            - www-data
+            - -c
+            - ./occ -vvv preview:pre-generate
+            volumeMounts:
+              - mountPath: "/var/www/html"
+                name: nextcloud-volume
+          restartPolicy: "Never"
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: preview-generate-all
+spec:
+  schedule: "0 4 * * 0"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 2678400
+      template:
+        spec:
+          volumes:
+            - name: nextcloud-volume
+              hostPath:
+                path: /var/data/nextcloud/storage
+                type: Directory
+          containers:
+          - name: preview-generate-all
+            image: nextcloud:28.0.1
+            imagePullPolicy: IfNotPresent
+            command:
+            - su
+            - -s
+            - /bin/sh
+            - www-data
+            - -c
+            - ./occ -v preview:generate-all
+            volumeMounts:
+              - mountPath: "/var/www/html"
+                name: nextcloud-volume
+          restartPolicy: "Never"
+
