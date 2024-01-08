@@ -15,7 +15,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-        - image: influxdb:2.7.4-alpine
+        - image: influxdb:2.7.5-alpine
           name: influxdb
           volumeMounts:
             - name: influxdb-volume
