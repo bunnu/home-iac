@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
-        - image: ghcr.io/home-assistant/home-assistant:2024.1.1
+        - image: ghcr.io/home-assistant/home-assistant:2024.1.2
           name: homeassistant
           volumeMounts:
             - name: homeassistant-volume
