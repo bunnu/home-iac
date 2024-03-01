@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
-        - image: nodered/node-red:3.1.5
+        - image: nodered/node-red:3.1.6
           name: nodered
           volumeMounts:
             - name: nodered-volume
