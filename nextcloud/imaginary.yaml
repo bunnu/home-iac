@@ -20,12 +20,13 @@ spec:
           resources:
             limits:
               memory: 2048Mi
-              cpu: 3
+              cpu: 5
             requests:
-              memory: 128Mi
+              memory: 256Mi
               cpu: 10m
           args:
-            - concurrency 5
+            - concurrency 20
+            - cpus 5
           securityContext:
             capabilities:
               add:
