@@ -13,7 +13,6 @@ spec:
       labels:
         app: influxdb
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
         - image: influxdb:2.7.5-alpine
           name: influxdb

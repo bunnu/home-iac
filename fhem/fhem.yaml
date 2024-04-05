@@ -13,7 +13,6 @@ spec:
       labels:
         app: fhem
     spec:
-      terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
         - image: ghcr.io/fhem/fhem-docker:3.3.3-bullseye

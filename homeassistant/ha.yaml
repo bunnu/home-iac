@@ -12,7 +12,6 @@ spec:
       labels:
         app: homeassistant
     spec:
-      terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
         - image: ghcr.io/home-assistant/home-assistant:2024.4.1

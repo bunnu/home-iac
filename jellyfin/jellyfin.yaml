@@ -13,7 +13,6 @@ spec:
       labels:
         app: jellyfin
     spec:
-      terminationGracePeriodSeconds: 10
       hostNetwork: true
       containers:
         - image: jellyfin/jellyfin:10.8.13-1

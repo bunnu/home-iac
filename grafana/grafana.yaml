@@ -13,7 +13,6 @@ spec:
       labels:
         app: grafana
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
         - image: grafana/grafana:10.4.1
           name: grafana

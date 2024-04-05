@@ -13,7 +13,6 @@ spec:
       labels:
         app: db
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
         - image: postgres:16.2-alpine
           name: db
