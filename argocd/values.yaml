@@ -11,6 +11,10 @@ configs:
             - ./
           command:
             - argocd-vault-plugin
+server:
+  service:
+    type: LoadBalancer
+    
 repoServer:
   extraContainers:
     - command:
