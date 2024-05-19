@@ -13,6 +13,8 @@ spec:
     directory:
       exclude: application.yaml
     targetRevision: main
+    plugin:
+      name: argocd-vault-plugin
   destination:
     server: https://kubernetes.default.svc
     namespace: nextcloud
