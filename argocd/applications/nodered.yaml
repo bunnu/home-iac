@@ -10,8 +10,6 @@ spec:
   source:
     repoURL: https://github.com/bunnu/home-iac.git
     path: nodered
-    directory:
-      exclude: application.yaml
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc

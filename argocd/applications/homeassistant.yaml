@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: evcc
+  name: homeassistant
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,13 +9,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bunnu/home-iac.git
-    path: evcc
-    directory:
-      exclude: application.yaml
+    path: homeassistant
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: evcc
+    namespace: homeassistant
   syncPolicy:
     automated: {}
     syncOptions:

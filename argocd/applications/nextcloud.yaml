@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wikijs
+  name: nextcloud
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,13 +9,13 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bunnu/home-iac.git
-    path: wikijs
-    directory:
-      exclude: application.yaml
+    path: nextcloud
     targetRevision: main
+    plugin:
+      name: argocd-vault-plugin
   destination:
     server: https://kubernetes.default.svc
-    namespace: wikijs
+    namespace: nextcloud
   syncPolicy:
     automated: {}
     syncOptions:

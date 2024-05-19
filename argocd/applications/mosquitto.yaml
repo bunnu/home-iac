@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nextcloud
+  name: mosquitto
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,15 +9,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bunnu/home-iac.git
-    path: nextcloud
-    directory:
-      exclude: application.yaml
+    path: mosquitto
     targetRevision: main
-    plugin:
-      name: argocd-vault-plugin
   destination:
     server: https://kubernetes.default.svc
-    namespace: nextcloud
+    namespace: mosquitto
   syncPolicy:
     automated: {}
     syncOptions:

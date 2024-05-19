@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jellyfin
+  name: evcc
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,13 +9,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bunnu/home-iac.git
-    path: jellyfin
-    directory:
-      exclude: application.yaml
+    path: evcc
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: jellyfin
+    namespace: evcc
   syncPolicy:
     automated: {}
     syncOptions:
