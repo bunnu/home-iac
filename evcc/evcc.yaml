@@ -16,8 +16,8 @@ spec:
       volumes:
         - name: config-volume
           hostPath:
-            path: /var/data/evcc/evcc.yaml
-            type: File
+            path: /var/data/evcc/
+            type: Directory
       hostNetwork: true
       containers:
         - image: evcc/evcc:0.126.3
@@ -28,7 +28,10 @@ spec:
               cpu: 500m
           volumeMounts:
             - name: config-volume
+              subPath: evcc.yaml
               mountPath: /etc/evcc.yaml
+            - name: config-volume
+              mountPath: /root/.evcc/
           env:
             - name: SEMP_BASE_URL
               value: http://192.168.178.10:7070
