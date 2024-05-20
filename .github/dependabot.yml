@@ -8,6 +8,8 @@ updates:
       time: "19:30"
       timezone: "Europe/Berlin"
     directories:
+      - "/argocd"
+      - "/argocd/applications"
       - "/evcc"
       - "/fhem"
       - "/grafana"
