@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - image: postgres:16.3-alpine
+          name: db
+          volumeMounts:
+            - name: db-volume
+              mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              memory: 396Mi
+              cpu: 1
+            requests:
+              memory: 32Mi
+              cpu: 1m
+          env:
+            - name: POSTGRES_USER
+              value: <path:brvault#homeassistant-postgres-user>
+            - name: POSTGRES_PASSWORD
+              value: <path:brvault#homeassistant-postgres-password>
+      volumes:
+        - name: db-volume
+          hostPath:
+            path: /var/data/homeassistant/postgres
+            type: Directory
