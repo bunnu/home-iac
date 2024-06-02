@@ -8,6 +8,6 @@ spec:
   ports:
     - port: 5432
       name: psql
-  clusterIP: None
+  clusterIP: 10.152.183.254
   selector:
     app: db
