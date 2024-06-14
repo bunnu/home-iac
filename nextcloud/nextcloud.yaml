@@ -27,8 +27,11 @@ spec:
           name: nextcloud
           resources:
             limits:
-              memory: 1024Mi
+              memory: 2Gi
               cpu: 2000m
+            requests:
+              memory: 512Mi
+              cpu: 500m
           volumeMounts:
             - mountPath: "/var/www/html"
               name: nextcloud-volume
