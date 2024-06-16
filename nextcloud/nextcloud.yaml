@@ -25,9 +25,12 @@ spec:
       containers:
         - image: nextcloud:29.0.1
           name: nextcloud
+          env:
+            - name: PHP_MEMORY_LIMIT
+              value: 1024M
           resources:
             limits:
-              memory: 6Gi
+              memory: 4Gi
               cpu: 4000m
             requests:
               memory: 512Mi
@@ -41,10 +44,16 @@ spec:
           image: nextcloud:29.0.1
           command:
             - /cron.sh
+          env:
+            - name: PHP_MEMORY_LIMIT
+              value: 1024M
           resources:
             limits:
-              memory: 1024Mi
-              cpu: 2000m
+              memory: 2Gi
+              cpu: 4000m
+            requests:
+              memory: 256Mi
+              cpu: 100m
           volumeMounts:
             - mountPath: "/var/www/html"
               name: nextcloud-volume
