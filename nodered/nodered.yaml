@@ -8,6 +8,8 @@ spec:
       app: nodered
   replicas: 1
   minReadySeconds: 10
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
