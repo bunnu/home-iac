@@ -15,7 +15,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: ghcr.io/fhem/fhem-docker:4.0.2-bullseye
+        - image: ghcr.io/fhem/fhem-docker:4.0.3-bullseye
           name: fhem
           volumeMounts:
             - name: fhem-volume
