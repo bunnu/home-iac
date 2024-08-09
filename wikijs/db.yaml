@@ -8,6 +8,8 @@ spec:
       app: db
   replicas: 1
   minReadySeconds: 10 # by default is 0
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
