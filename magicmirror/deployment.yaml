@@ -25,7 +25,7 @@ spec:
           emptyDir:
             sizeLimit: 1Mi
       containers:
-        - image: karsten13/magicmirror:v2.29.0
+        - image: karsten13/magicmirror:v2.28.0
           name: magicmirror
           resources:
             limits:
@@ -48,7 +48,7 @@ spec:
             - server
       initContainers:
         - name: init
-          image: karsten13/magicmirror:v2.29.0
+          image: karsten13/magicmirror:v2.28.0
           command:
             - /bin/sh
             - -c
