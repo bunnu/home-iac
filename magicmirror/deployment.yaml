@@ -14,18 +14,12 @@ spec:
         app: magicmirror
     spec:
       volumes:
-        - name: config-volume
+        - name: magicmirror
           hostPath:
-            path: /var/data/magicmirror/config.js
-            type: File
-        - name: modules
-          emptyDir:
-            sizeLimit: 500Mi
-        - name: css
-          emptyDir:
-            sizeLimit: 1Mi
+            path: /var/data/magicmirror/
+            type: Directory
       containers:
-        - image: karsten13/magicmirror:v2.28.0
+        - image: karsten13/magicmirror:v2.29.0
           name: magicmirror
           resources:
             limits:
@@ -33,36 +27,11 @@ spec:
               cpu: 500m
           volumeMounts:
             - mountPath: /opt/magic_mirror/config/config.js
-              name: config-volume
-            - mountPath: /opt/magic_mirror/modules
-              name: modules
-            - mountPath: /opt/magic_mirror/css
-              name: css
+              subPath: config.js
+              name: magicmirror
+            - mountPath: /opt/magic_mirror/start_script.sh
+              subPath: start_script.sh
+              name: magicmirror
           env:
             - name: TZ
               value: Europe/Berlin
-
-          command:
-            - npm
-            - run
-            - server
-      initContainers:
-        - name: init
-          image: karsten13/magicmirror:v2.28.0
-          command:
-            - /bin/sh
-            - -c
-          args:
-            - ./entrypoint.sh;
-              cd modules;
-              git clone https://github.com/MMM-CalendarExt2/MMM-CalendarExt2 --depth 1;
-              cd MMM-CalendarExt2 && npm install && cd ..;
-              git clone https://github.com/ottopaulsen/MMM-MQTT --depth 1;
-              cd MMM-MQTT && npm install && cd ..;
-              git clone https://github.com/MarcLandis/MMM-OpenWeatherMapForecast.git --depth 1;
-              cd MMM-OpenWeatherMapForecast && npm install && cd ..;
-          volumeMounts:
-            - mountPath: /opt/magic_mirror/modules
-              name: modules
-            - mountPath: /opt/magic_mirror/css
-              name: css
