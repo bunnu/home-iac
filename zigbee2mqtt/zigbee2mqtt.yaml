@@ -39,7 +39,7 @@ spec:
               mountPath: /dev/ttyACM0
           resources:
             limits:
-              memory: 128Mi
+              memory: 256Mi
               cpu: 500m
             requests:
               memory: 32Mi
