@@ -26,23 +26,6 @@ spec:
           env:
             - name: TZ
               value: Europe/Berlin
-      initContainers:
-        - name: db-ready
-          image: postgres:17.0-alpine
-          command:
-            - /bin/sh
-            - -c
-            - |
-              until pg_isready -h db -p 5432; do
-                echo "Waiting for database to be ready...";
-                sleep 2;
-              done;
-              echo "Database is ready!";
-          env:
-            - name: POSTGRES_USER
-              value: <path:brvault#homeassistant-postgres-user>
-            - name: POSTGRES_PASSWORD
-              value: <path:brvault#homeassistant-postgres-password>
       volumes:
         - name: homeassistant-volume
           hostPath:
