@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+spec:
+  schedule: "0 0 15 * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 604800
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - image: postgres:17.0-alpine
+              name: db
+              volumeMounts:
+                - name: backup-volume
+                  mountPath: /tmp/backup
+              resources:
+                limits:
+                  memory: 396Mi
+                  cpu: 1
+              command: ["sh", "-c", "pg_dumpall -h db -c --if-exists > /tmp/backup/backup.sql"]
+              env:
+                - name: PGUSER
+                  value: <path:brvault#homeassistant-postgres-user>
+                - name: PGPASSWORD
+                  value: <path:brvault#homeassistant-postgres-password>
+          volumes:
+            - name: backup-volume
+              hostPath:
+                path: /var/data/homeassistant/postgres
+                type: Directory
+          restartPolicy: Never

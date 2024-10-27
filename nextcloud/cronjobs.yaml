@@ -64,4 +64,39 @@ spec:
               - mountPath: "/var/www/html"
                 name: nextcloud-volume
           restartPolicy: "Never"
-
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+spec:
+  schedule: "0 0 10 * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 604800
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+            - image: postgres:17.0-alpine
+              name: db
+              volumeMounts:
+                - name: backup-volume
+                  mountPath: /tmp/backup
+              resources:
+                limits:
+                  memory: 396Mi
+                  cpu: 1
+              command: ["sh", "-c", "pg_dumpall -h db -c --if-exists > /tmp/backup/backup.sql"]
+              env:
+                - name: PGUSER
+                  value: <path:brvault#nextcloud-postgres-user>
+                - name: PGPASSWORD
+                  value: <path:brvault#nextcloud-postgres-password>
+          volumes:
+            - name: backup-volume
+              hostPath:
+                path: /var/data/nextcloud
+                type: Directory
+          restartPolicy: Never
