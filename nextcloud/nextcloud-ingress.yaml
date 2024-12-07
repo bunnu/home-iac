@@ -6,6 +6,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/proxy-body-size: 1G
 spec:
+  ingressClassName: public
   tls:
     - hosts:
         - next.rana.cloud
