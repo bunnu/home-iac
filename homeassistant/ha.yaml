@@ -27,7 +27,7 @@ spec:
             - name: homeassistant-volume
               mountPath: /config
             - name: dummy-volume
-              mountPath: /
+              mountPath: /.dockerenv
               subPath: .dockerenv
           resources:
             limits:
