@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dummy-configmap
+data:
+  .dockerenv: ""
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +26,9 @@ spec:
           volumeMounts:
             - name: homeassistant-volume
               mountPath: /config
+            - name: dummy-configmap
+              mountPath: /
+              subPath: .dockerenv
           resources:
             limits:
               memory: 1.5Gi
@@ -31,3 +41,6 @@ spec:
           hostPath:
             path: /var/data/homeassistant
             type: Directory
+        - name: dummy-volume
+          configMap:
+            name: dummy-configmap
