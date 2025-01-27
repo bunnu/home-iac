@@ -17,7 +17,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: jellyfin/jellyfin:10.10.4.20250122-024015
+        - image: jellyfin/jellyfin:10.10.5.20250125-191511
           name: jellyfin
           volumeMounts:
             - name: jellyfin-volume
