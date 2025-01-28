@@ -19,7 +19,7 @@ spec:
             path: /var/data/paperless
             type: Directory
       containers:
-        - image: ghcr.io/paperless-ngx/paperless-ngx:2.14.5
+        - image: ghcr.io/paperless-ngx/paperless-ngx:2.14.6
           name: paperless
           resources:
             limits:
