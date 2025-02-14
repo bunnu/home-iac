@@ -12,7 +12,7 @@ spec:
       template:
         spec:
           containers:
-            - image: postgres:17.2-alpine
+            - image: postgres:17.3-alpine
               name: db
               volumeMounts:
                 - name: backup-volume
