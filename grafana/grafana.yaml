@@ -39,7 +39,7 @@ spec:
               value: "60"
             - name: GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DAYS
               value: "365"
-        - image: grafana/grafana-image-renderer:3.12.1
+        - image: grafana/grafana-image-renderer:3.12.2
           name: grafana-image-renderer
           resources:
             limits:
