@@ -19,7 +19,7 @@ spec:
             path: /var/data/magicmirror/
             type: Directory
       containers:
-        - image: karsten13/magicmirror:v2.30.0
+        - image: karsten13/magicmirror:v2.31.0
           name: magicmirror
           resources:
             limits:
