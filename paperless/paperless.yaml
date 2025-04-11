@@ -57,7 +57,7 @@ spec:
             - name: PAPERLESS_OCR_LANGUAGES
               value: "deu eng"
             - name: PAPERLESS_OCR_USER_ARGS
-              value: '{"invalidate_digital_signatures": true}'
+              value: '{"invalidate_digital_signatures": true, "continue_on_soft_render_error": true}'
             - name: "PAPERLESS_TIME_ZONE"
               value: "Europe/Berlin"
             - name: PAPERLESS_OCR_LANGUAGE
