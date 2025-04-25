@@ -14,7 +14,7 @@ spec:
         app: redis
     spec:
       containers:
-        - image: redis:7.4.2-alpine
+        - image: redis:7.4.3-alpine
           name: redis
           command:
             - redis-server
