@@ -27,7 +27,7 @@ spec:
           name: nextcloud
           env:
             - name: PHP_MEMORY_LIMIT
-              value: 1024M
+              value: 3072M
           resources:
             limits:
               memory: 4Gi
