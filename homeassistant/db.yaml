@@ -16,7 +16,7 @@ spec:
         app: db
     spec:
       containers:
-        - image: postgres:17.5-alpine
+        - image: postgres:17.6-alpine
           name: db
           volumeMounts:
             - name: db-volume
