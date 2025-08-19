@@ -14,7 +14,7 @@ spec:
         app: grafana
     spec:
       containers:
-        - image: grafana/grafana:12.1.0
+        - image: grafana/grafana:12.1.1
           name: grafana
           volumeMounts:
             - name: grafana-volume
