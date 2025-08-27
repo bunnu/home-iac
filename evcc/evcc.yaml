@@ -20,7 +20,7 @@ spec:
             type: Directory
       hostNetwork: true
       containers:
-        - image: evcc/evcc:0.207.4
+        - image: evcc/evcc:0.207.5
           name: evcc
           resources:
             limits:
