@@ -23,7 +23,7 @@ spec:
             path: /var/data/paperless/consume
             type: Directory
       containers:
-        - image: nextcloud:31.0.8
+        - image: nextcloud:31.0.9
           name: nextcloud
           env:
             - name: PHP_MEMORY_LIMIT
@@ -41,7 +41,7 @@ spec:
             - mountPath: "/var/data/paperless/consume"
               name: paperless-volume
         - name: nextcloud-cron
-          image: nextcloud:31.0.8
+          image: nextcloud:31.0.9
           command:
             - /cron.sh
           env:
