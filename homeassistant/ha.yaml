@@ -21,7 +21,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: ghcr.io/home-assistant/home-assistant:2025.9.3
+        - image: ghcr.io/home-assistant/home-assistant:2025.9.4
           name: homeassistant
           volumeMounts:
             - name: homeassistant-volume
