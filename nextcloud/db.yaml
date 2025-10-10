@@ -16,15 +16,18 @@ spec:
         app: db
     spec:
       containers:
-        - image: postgres:17.6-alpine
+        - image: postgres:18.0-alpine
           name: db
           volumeMounts:
             - name: db-volume
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql
           resources:
             limits:
               memory: 396Mi
               cpu: 1000m
+            requests:
+              memory: 256Mi
+              cpu: 100m
           env:
             - name: POSTGRES_USER
               value: <path:brvault#nextcloud-postgres-user>
