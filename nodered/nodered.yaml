@@ -17,7 +17,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-        - image: nodered/node-red:4.1.0-20
+        - image: nodered/node-red:4.1.1-20
           name: nodered
           volumeMounts:
             - name: nodered-volume
