@@ -18,7 +18,7 @@ spec:
                 type: Directory
           containers:
           - name: preview-pre-generate
-            image: nextcloud:32.0.1
+            image: nextcloud:32.0.2
             imagePullPolicy: IfNotPresent
             command:
             - su
@@ -51,7 +51,7 @@ spec:
                 type: Directory
           containers:
           - name: preview-generate-all
-            image: nextcloud:32.0.1
+            image: nextcloud:32.0.2
             imagePullPolicy: IfNotPresent
             command:
             - su
