@@ -20,6 +20,28 @@ spec:
         app: homeassistant
     spec:
       hostNetwork: true
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:18-alpine
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for Postgres (10.152.183.254:5432)..."
+              until pg_isready -h 10.152.183.254 -p 5432; do echo "db not ready yet"; sleep 2; done
+              echo "db is ready"
+
+        - name: wait-for-mqtt
+          image: eclipse-mosquitto:2
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for MQTT (10.1.84.146:1883)..."
+              until mosquitto_pub -h 10.1.84.146 -p 1883 -t homeassistant/initcheck -m ping; do echo "mosquitto not ready yet"; sleep 2; done
+              echo "mosquitto is ready"
       containers:
         - image: ghcr.io/home-assistant/home-assistant:2025.11.3
           name: homeassistant
@@ -33,6 +55,9 @@ spec:
             limits:
               memory: 1.5Gi
               cpu: 2
+            requests:
+              memory: 1.5Gi
+              cpu: 500m
           env:
             - name: TZ
               value: Europe/Berlin
