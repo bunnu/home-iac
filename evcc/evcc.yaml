@@ -21,6 +21,20 @@ spec:
             path: /var/data/evcc/
             type: Directory
       hostNetwork: true
+      initContainers:
+        - name: wait-for-mqtt
+          image: eclipse-mosquitto:2
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for MQTT (10.1.84.146:1883)..."
+              until mosquitto_pub -h 10.1.84.146 -p 1883 -t 'test/test' -r -n; do
+                echo "mosquitto not ready yet, sleeping for 2 seconds";
+                sleep 2;
+              done
+              echo "mosquitto is ready"
       containers:
         - image: evcc/evcc:0.210.2
           name: evcc
