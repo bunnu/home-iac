@@ -8,6 +8,8 @@ spec:
   selector:
     matchLabels:
       app: evcc
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -26,6 +28,9 @@ spec:
             limits:
               memory: 64Mi
               cpu: 500m
+            requests:
+              memory: 64Mi
+              cpu: 100m
           volumeMounts:
             - name: config-volume
               subPath: evcc.yaml
