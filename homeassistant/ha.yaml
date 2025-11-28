@@ -40,7 +40,10 @@ spec:
             - -c
             - |
               echo "Waiting for MQTT (10.1.84.146:1883)..."
-              until mosquitto_pub -h 10.1.84.146 -p 1883 -t homeassistant/initcheck -m ping; do echo "mosquitto not ready yet"; sleep 2; done
+              until mosquitto_pub -h 10.1.84.146 -p 1883 -t 'test/test' -r -n; do
+                echo "mosquitto not ready yet, sleeping for 2 seconds";
+                sleep 2;
+              done
               echo "mosquitto is ready"
       containers:
         - image: ghcr.io/home-assistant/home-assistant:2025.11.3
