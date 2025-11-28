@@ -28,8 +28,8 @@ spec:
             - sh
             - -c
             - |
-              echo "Waiting for Postgres (10.152.183.254:5432)..."
-              until pg_isready -h 10.152.183.254 -p 5432; do echo "db not ready yet"; sleep 2; done
+              echo "Waiting for Postgres (10.1.84.171:5432)..."
+              until pg_isready -h 10.1.84.171 -p 5432; do echo "db not ready yet"; sleep 2; done
               echo "db is ready"
 
         - name: wait-for-mqtt
@@ -39,8 +39,8 @@ spec:
             - sh
             - -c
             - |
-              echo "Waiting for MQTT (10.1.84.146:1883)..."
-              until mosquitto_pub -h 10.1.84.146 -p 1883 -t 'test/test' -r -n; do
+              echo "Waiting for MQTT (10.1.84.158:1883)..."
+              until mosquitto_pub -h 10.1.84.158 -p 1883 -t 'test/test' -r -n; do
                 echo "mosquitto not ready yet, sleeping for 2 seconds";
                 sleep 2;
               done
