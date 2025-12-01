@@ -32,7 +32,7 @@ spec:
               echo "mosquitto is ready"
       containers:
         - name: zigbee2mqtt
-          image: koenkk/zigbee2mqtt:2.6.3
+          image: koenkk/zigbee2mqtt:2.7.0
           env:
             - name: TZ
               value: Europe/Berlin
