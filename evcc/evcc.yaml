@@ -36,7 +36,7 @@ spec:
               done
               echo "mosquitto is ready"
       containers:
-        - image: evcc/evcc:0.211.0
+        - image: evcc/evcc:0.211.1
           name: evcc
           resources:
             limits:
